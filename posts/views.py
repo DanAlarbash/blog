@@ -5,28 +5,21 @@ from django.shortcuts import get_object_or_404
 
 
 # Create your views here.
-def post_create(request):
-	post_list =  get_object_or_404(Post, id=2)
+def post_detail(request, post_id):
+	obj =  get_object_or_404(Post, id=post_id)
 	context = {
-		"user" : request.user,
-		"list" :post_list,
+		"instance": obj,
+
 	}
+	return render(request, 'post_detail.html', context)
 
-
-
-
-
-
-	return render(request, 'create.html', context)
-
-def post_update(request):
-	return render(request, 'update.html', {})
-
-def post_delete(request):
-	return render(request, 'delete.html', {})
 
 def post_list(request):
-	return render(request, 'list.html', {})
+	obj_list = Post.objects.all()
+	context = {
+		"post_list": obj_list,
+	}
+	return render(request, 'post_list.html', context)
 
-def post_detail(request):
-	return render(request, 'detail.html', {})
+
+
