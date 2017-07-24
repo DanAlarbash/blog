@@ -9,15 +9,18 @@
 
 
     <ol>
-    {% for instance in post_list %}
-    	<a href="/posts/detail/{{instance.id}}"><li>{{instance.title}}</li></a>
+    {% for x in post_list %}
+    	<a href="{% url 'detail' post_id=x.id %}"><li>{{x.title}}</li></a>
     {% endfor %}
+
+
+    
 
     </ol>
 
 
-  
 
+ 
 
 
 </body>
