@@ -3,28 +3,16 @@
 
 
 
-{% block head_title %}Create{% endblock head_title}
+{% block head_title %}List{% endblock head_title %}
 {% block content %}
 
-	{% if messages %}
-	<ul class="messages">
-		{% for message in messages %}
-		<li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-		{% endfor %}
-	</ul>
-	{% endif %}	
-
-
+	
 
 
     <ol>
     {% for x in post_list %}
     	<a href="{{x.get_absolute_url}}"><li>{{x.title}}</li></a>
     {% endfor %}
-
-
-    
-
     </ol>
 
 
