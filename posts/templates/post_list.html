@@ -1,10 +1,11 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title> LIST </title>
 
-</head>
-<body>
+{% extends "base.html" %}
+
+
+
+{% block head_title %}Create{% endblock head_title}
+{% block content %}
+
 	{% if messages %}
 	<ul class="messages">
 		{% for message in messages %}
@@ -27,6 +28,4 @@
     </ol>
 
 
-
-</body>
-</html>
+{% endblock content %}
