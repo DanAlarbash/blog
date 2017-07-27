@@ -5,6 +5,8 @@ from django.shortcuts import get_object_or_404
 from .forms import PostForm
 from django.contrib import messages
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from urllib.parse import quote
+
 
 
 # Create your views here.
@@ -12,6 +14,7 @@ def post_detail(request, post_id):
 	obj =  get_object_or_404(Post, id=post_id)
 	context = {
 		"instance": obj,
+		#"share_string": quote(obj.content),
 
 	}
 	return render(request, 'post_detail.html', context)
