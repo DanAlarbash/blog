@@ -4,6 +4,7 @@ from . models import Post
 from django.shortcuts import get_object_or_404
 from .forms import PostForm
 from django.contrib import messages
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 # Create your views here.
@@ -18,13 +19,24 @@ def post_detail(request, post_id):
 
 def post_list(request):
 	obj_list = Post.objects.all()#.order_by("-timestamp","title")
+	paginator = Paginator(obj_list, 3) # Show 8 contacts per page
+	page = request.GET.get('page')
+	try:
+		objs = paginator.page(page)
+	except PageNotAnInteger:
+		# If page is not an integer, deliver first page.
+		objs = paginator.page(1)
+	except EmptyPage:
+		# If page is out of range (e.g. 9999), deliver last page of results.
+		objs = paginator.page(paginator.num_pages)
+
 	context = {
-		"post_list": obj_list,
+		"post_list": objs,
 	}
 	return render(request, 'post_list.html', context)
 
 def post_create(request):
-	form = PostForm(request.POST or None)
+	form = PostForm(request.POST or None, request.FILES or None)
 	if form.is_valid():
 		form.save()
 		messages.success(request, "OMG! So cool! You created an object.")
@@ -37,7 +49,7 @@ def post_create(request):
 
 def post_update(request, post_id):
 	post_object = get_object_or_404(Post, id=post_id)
-	form = PostForm(request.POST or None, instance=post_object)
+	form = PostForm(request.POST or None, request.FILES or None, instance=post_object)
 	if form.is_valid():
 		form.save()
 		messages.success(request, "Giving it a second thought?")

@@ -7,7 +7,7 @@
 {% block content %}
 
 
-	<form method="POST" action="{% url 'posts:update' post_id=post_object.id %}">
+	<form method="POST" action="{% url 'posts:update' post_id=post_object.id %}"enctype="multipart/form-data">
 
 		{% csrf_token %}
 		{{form.as_p}}	

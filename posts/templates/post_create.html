@@ -5,7 +5,7 @@
 
 {% block head_title %}Create{% endblock head_title %}
 {% block content %}
-	<form method="POST" action="{% url 'posts:create' %}">
+	<form method="POST" action="{% url 'posts:create' %}" enctype="multipart/form-data">
 
 		{% csrf_token %}
 		{{form.as_p}}	

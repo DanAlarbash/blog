@@ -3,6 +3,7 @@ from django.core.urlresolvers import reverse
 
 class Post(models.Model):
 	title = models.CharField(max_length=50)
+	image = models.ImageField(upload_to="blog_images", null=True, blank=True)
 	content = models.TextField()
 	updated = models.DateTimeField(auto_now=True,)
 	timestamp = models.DateTimeField(auto_now_add=True)
