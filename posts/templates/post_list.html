@@ -8,6 +8,15 @@
 
 
 <div class="row">
+
+<form action="{% url 'posts:list' %}" method="Get">
+	<input type="text" name="q" placeholder="Search posts here" value="{{request.GET.q}}">
+	<input type="submit" value="Search">
+	<a href="?page={{ post_list.number }}" class="btn btn-primary">Clear Search</a>
+
+</form>
+<br>
+
 {% for x in post_list %}
   <div class="col-sm-6 ">
     <div class="thumbnail">
@@ -15,13 +24,21 @@
       <img src="{{x.image.url}}" class="img-responsive">
       {% endif %}
       <div class="caption">
-        <h3>{{x.title}} <small>{{x.timestamp|timesince}} ago</small></h3>
-        <p>{{x.content|linebreaks|truncatechars:10}}</p>
+        <h3>{{x.title}} <small>{{x.publish|timesince}} ago</small></h3>
+        {% if  x.draft %}<h4>Draft</h4>{% endif %}
+		{% if x.publish > today %} <h4> Future Blog Post</h4> {% endif %}
 
+        <p>{{x.content|linebreaks|truncatechars:10}}</p>
         <p>
         <a href="{{x.get_absolute_url}}" class="btn btn-primary">View</a> 
-        <a href="{% url 'posts:update' post_id=x.id %}" class="btn btn-success">Edit</a>
-        <a href="{% url 'posts:delete' post_id=x.id %}" class="btn btn-danger">Delete</a>
+
+        {% if request.user.is_staff or request.user.is_superuser %}
+        <a href="{% url 'posts:update' slug=x.slug %}" class="btn btn-success">Edit</a>
+        {% endif %}
+        {% if request.user.is_superuser %}
+        <a href="{% url 'posts:delete' slug=x.slug %}" class="btn btn-danger">Delete</a>
+		{% endif %}
+
         </p>
       </div>
     </div>
@@ -32,15 +49,16 @@
 <div class="pagination">
     <span class="step-links">
         {% if post_list.has_previous %}
-            <a href="?page={{ post_list.previous_page_number }}">previous</a>
+            <a href="?page={{ post_list.previous_page_number }}&q={{request.GET.q}}">previous</a>
         {% endif %}
 
         <span class="current">
             Page {{ post_list.number }} of {{ post_list.paginator.num_pages }}.
         </span>
 
+
         {% if post_list.has_next %}
-            <a href="?page={{ post_list.next_page_number }}">next</a>
+            <a href="?page={{ post_list.next_page_number }}&q={{request.GET.q}}">next</a>
         {% endif %}
     </span>
 </div>
