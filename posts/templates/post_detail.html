@@ -18,7 +18,7 @@
 			<p>{{instance.content|linebreaks|truncatechars:10}}</p>
 
 			Author: {{instance.author.username}}
-
+ 
 			<p>
 			<a href="{% url 'posts:update' slug=instance.slug %}" class="btn btn-success">Edit</a>
 			<a href="{% url 'posts:delete' slug=instance.slug %}" class="btn btn-danger">Delete</a>
@@ -35,6 +35,12 @@
 			</a>
 			</div>
 		  </div>
+
+			<button class="btn" onclick="ajax_like()">
+		  		<span id="likes_count">{{like_count}}</span>
+		  		<span id= "heart" class="glyphicon glyphicon-heart {% if liked %}text-danger{% endif %}" aria-hidden="true"></span>
+			</button>
+			<br><br>
 		 	{% include "django_comments.html" %}
 		 	<br>
 			<a href="{% url 'posts:list' %}" class="btn btn-primary">Go back to list</a>
@@ -42,6 +48,31 @@
 	  </div>
 
 			
+<script>
+		function ajax_like()
+		{
+			console.log("Like/Unlike clicked!")
+			$.ajax({
+				type: 'GET',
+				url: '{% url "posts:like_button" post_id=instance.id %}',
+				error: function(){
+					console.log("noob");
+				},
+				success: function(data){
+					$("#likes_count").text(data.post_like_count);
 
+					if(data.action==="like"){
+						$("#heart").addClass("text-danger");
+					}
+					else{
+						$("#heart").removeClass("text-danger");
+					}
+				},
+
+			});
+		}
+
+
+</script>
 	
 {% endblock content %}
