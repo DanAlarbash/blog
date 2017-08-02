@@ -10,7 +10,7 @@
 
 
 	<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" >
-	{#<link rel="stylesheet" href="{% static 'css/posts.css' %}"> #}
+	<link rel="stylesheet" href="{% static 'css/posts.css' %}">
 
 
 </head>
@@ -19,8 +19,7 @@
 {% include 'navbar.html' %}
 {% include 'messages.html' %}
 
-<div class="container">
-<h1>HELLO</h1>
+<div class="container content">
 {% block content %}
 {% endblock content %}
 </div>
