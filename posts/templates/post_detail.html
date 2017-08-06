@@ -35,18 +35,22 @@
 			</a>
 			</div>
 		  </div>
+			<div class="fb-like col-sm-8 col-sm-offset-2" data-href="https://developers.facebook.com/docs/plugins/" data-layout="standard" data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
+		  <div class="fb-comments" data-href="{{request.build_absolute_uri}}" data-numposts="5"></div>
 
-			<button class="btn" onclick="ajax_like()">
+
+		<!--	<button class="btn" onclick="ajax_like()">
 		  		<span id="likes_count">{{like_count}}</span>
 		  		<span id= "heart" class="glyphicon glyphicon-heart {% if liked %}text-danger{% endif %}" aria-hidden="true"></span>
 			</button>
 			<br><br>
-		 	{% include "django_comments.html" %}
-		 	<br>
-			<a href="{% url 'posts:list' %}" class="btn btn-primary">Go back to list</a>
-		</div>
+		 	{% include "django_comments.html" %} -->
+		 
+		 	<br><br>
+			<a href="{% url 'posts:list' %}" class="btn btn-primary col-sm-8 col-sm-offset-2">Go back to list</a>
+	
 	  </div>
-
+		</div>
 			
 <script>
 		function ajax_like()
