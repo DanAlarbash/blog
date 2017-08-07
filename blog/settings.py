@@ -25,7 +25,7 @@ SECRET_KEY = 'q-untzo9srygb9)xss*9@9806$zdy_zuropi$ig5!$j@=bg0tw'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['174.138.24.220',]
+ALLOWED_HOSTS = ['128.199.238.104',]
 
 
 # Application definition
@@ -95,7 +95,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'django',
         'USER': 'django',
-        'PASSWORD': 'f24a39b1e39dd8f6af71a79d5c98641d',
+        'PASSWORD': '581c421eadc02f60cfabd1f1362f531b',
         'HOST': 'localhost',
         'PORT': '',
     }
